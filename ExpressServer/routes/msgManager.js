@@ -4,10 +4,10 @@ var messageList = [];
 /* GET home page. */
 router.post('/', function (req, res, next) {
     //   res.render('index', { title: 'Express' });
-    console.log("req" + req.body);
+    // console.log("req" + req.body);
     res.send("success");
     messageList.push(req.body);
-    console.log("message list = " + messageList);
+    // console.log("message list = " + messageList);
 });
 router.get('/getNewMsg', function (req, res, next) {
     if (messageList.length > 0) {
