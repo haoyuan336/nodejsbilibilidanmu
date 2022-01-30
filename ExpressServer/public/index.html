@@ -11,7 +11,15 @@
         // http.onreadystatechange = (e)=>{
         //     console.log(http.responseText);
         // }
-
+        const getQueryVariable = (variable) => {
+            var query = window.location.search.substring(1);
+            var vars = query.split("&");
+            for (var i = 0; i < vars.length; i++) {
+                var pair = vars[i].split("=");
+                if (pair[0] == variable) { return pair[1]; }
+            }
+            return (false);
+        }
         const reportMsg = (data) => {
             const http = new XMLHttpRequest();
             const url = "http://localhost:3000/msgManager?msg=";
@@ -54,10 +62,12 @@
             WS_AUTH_OK: 0,
             WS_AUTH_TOKEN_ERROR: -101
         };
+        var roomid = parseInt(getQueryVariable("roomId"));
+        // console.log("roomid = " + roomid);
 
         var auth_params = {
             'uid': 0,
-            'roomid': 9300435,
+            'roomid': roomid,
             'protover': 1,
             'platform': 'web',
             'clientver': '1.4.0'
@@ -110,7 +120,7 @@
                         var nickName = msg.info[2][1];
                         var text = msg.info[1];
                         console.log("msg", msg);
-                       
+
                         console.log("id = " + id + " nickname = " + nickName + " text = " + text);
                         reportMsg({
                             id: id,
